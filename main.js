@@ -1,6 +1,7 @@
 const electron = require('electron');
 const url = require('url');
 const path = require('path');
+const Excel = require('./excel');
 
 const {app, BrowserWindow, Menu} = electron;
 
@@ -15,6 +16,9 @@ app.on('ready', ()=> {
   }));
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate)
   Menu.setApplicationMenu(mainMenu);
+  Excel.getFundData().then((fundData) => {
+    console.log(fundData)
+  });
 })
 
 
