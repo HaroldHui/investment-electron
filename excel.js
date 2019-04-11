@@ -6,7 +6,7 @@ workbook.xlsx.readFile('./assets/dashboard.xlsx')
     const worksheet = workbook.getWorksheet('Fund Data');
     worksheet.eachRow( (row, rowNumber) => {
       if (rowNumber > 5){
-        const date = row.getCell(1).text;
+        const date = new Date(row.getCell(1).text);
         const income = row.getCell(2).text;
         const growth = row.getCell(3).text;
         const total = row.getCell(4).text; 
