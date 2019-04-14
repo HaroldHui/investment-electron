@@ -1,10 +1,10 @@
 import Excel from 'exceljs';
 import hasEmptyString from '../utils/stringUtils';
 
-async function all() {
+async function all(fundFilePath) {
   const indexes = [];
   const workbook = new Excel.Workbook();
-  await workbook.xlsx.readFile('./assets/dashboard.xlsx');
+  await workbook.xlsx.readFile(fundFilePath);
   const worksheet = workbook.getWorksheet('Index Data');
   worksheet.eachRow((row, rowNumber) => {
     if (rowNumber > 5) {

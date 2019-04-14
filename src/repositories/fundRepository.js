@@ -1,11 +1,12 @@
 import Excel from 'exceljs';
 import hasEmptyString from '../utils/stringUtils';
 
-async function all() {
+async function all(fundFilePath) {
   const funds = [];
   const workbook = new Excel.Workbook();
-  await workbook.xlsx.readFile('./assets/dashboard.xlsx');
+  await workbook.xlsx.readFile(fundFilePath);
   const worksheet = workbook.getWorksheet('Fund Data');
+  worksheet.getCell('A1').value = 'test test';
   worksheet.eachRow((row, rowNumber) => {
     if (rowNumber > 5) {
       const date = new Date(row.getCell(1).text);

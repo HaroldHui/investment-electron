@@ -7,15 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "npm run build && electron ./dist/main.js",
     "clean": "rm -rf dist && mkdir dist",
-    "build": "npm run clean && babel -d ./dist ./src",
+    "build": "npm run clean && babel -d ./dist ./src --copy-files",
     "eslint": "eslint src --fix"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "exceljs": "^1.9.0",
     "electron": "^4.1.4",
-    "lodash": "^4.17.11"
+    "exceljs": "^1.9.0",
+    "lodash": "^4.17.11",
+    "moment": "^2.24.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

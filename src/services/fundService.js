@@ -15,17 +15,12 @@ function oneYearReturn(funds, indexes, year) {
   const index = sumOfMap(indexesOfYear, 'value');
   const valueAdded = total - index;
   return {
-    year,
-    returns: {
-      income, growth, total, index, valueAdded,
-    },
+    year, income, growth, total, index, valueAdded,
   };
 }
 
-export async function calendarYearReturn(start, end) {
-  const [funds, indexes] = await Promise.all([fundRepository.all(), indexRepository.all()]);
-  const startDate = new Date(start);
-  const endDate = new Date(end);
+export async function calendarYearReturn(fundFilePath, startDate, endDate) {
+  const [funds, indexes] = await Promise.all([fundRepository.all(fundFilePath), indexRepository.all(fundFilePath)]);
   return _.range(startDate.getFullYear(), endDate.getFullYear())
     .map(year => oneYearReturn(funds, indexes, year));
 }
