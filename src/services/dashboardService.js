@@ -8,39 +8,39 @@ import { plus } from '../utils/26bs';
 const DASHBOARD_TEMPLATE = path.join(__dirname, '../assets/dashboard.xlsx');
 const TEMP_DASHBOARD = path.join(__dirname, '../assets/temp_dashboard.xlsx');
 
+
+const MONTH_FORMAT = 'mm/yyyy';
+
 const CALENDAR_YEAR_RETURN_START_CELL = { column: 'B', row: 11 };
+
+function setCell(worksheet, cell, value, format='General') {
+  worksheet.getCell(cell).value = value;
+  worksheet.getCell(cell).numFmt = format;
+}
 
 
 function writeDate(worksheet, startDate, endDate) {
   const formattedStart = moment(startDate).format('DD/MM/YYYY');
   const formattedEnd = moment(endDate).format('DD/MM/YYYY');
   const diff = moment(endDate).diff(moment(startDate), 'month', true);
-  worksheet.getCell('K5').value = formattedStart;
-  // worksheet.getCell('K5').fill = {
-  //   type: Excel.ValueType.Date
-  // };
-  worksheet.getCell('K6').value = formattedEnd;
-  // worksheet.getCell('K6').fill = {
-  //   type: Excel.ValueType.Date
-  // };
-  worksheet.getCell('K7').value = diff;
-  // worksheet.getCell('K7').fill = {
-  //   type: Excel.ValueType.String
-  // };
+
+  setCell(worksheet, 'K5', formattedStart, MONTH_FORMAT);
+  setCell(worksheet, 'K6', formattedEnd, MONTH_FORMAT);
+  setCell(worksheet, 'K7', parseInt(diff));
 }
 
 function writeCalendarYearReturn(worksheet, calendarYearReturn) {
   calendarYearReturn.forEach((fund, index) => {
     const column = plus(CALENDAR_YEAR_RETURN_START_CELL.column, index);
     const row = CALENDAR_YEAR_RETURN_START_CELL.row;
-    worksheet.getCell(column + row.toString()).value = fund.year;
-    worksheet.getCell(column + (row + 1).toString()).value = fund.income;
-    worksheet.getCell(column + (row + 2).toString()).value = fund.growth;
-    worksheet.getCell(column + (row + 3).toString()).value = fund.total;
-    worksheet.getCell(column + (row + 4).toString()).value = fund.index;
-    worksheet.getCell(column + (row + 5).toString()).value = fund.valueAdded;
-  });
 
+    setCell(worksheet, column + row.toString(), fund.year);
+    setCell(worksheet, column + (row + 1).toString(), fund.income);
+    setCell(worksheet, column + (row + 2).toString(), fund.growth);
+    setCell(worksheet, column + (row + 3).toString(), fund.total);
+    setCell(worksheet, column + (row + 4).toString(), fund.index);
+    setCell(worksheet, column + (row + 5).toString(), fund.valueAdded);
+  });
 }
 
 export async function generateDashboard(fundFilePath, startDate, endDate) {
