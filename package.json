@@ -10,7 +10,8 @@
     "build": "npm run clean && babel -d ./compiled_src ./src --copy-files",
     "eslint": "eslint src --fix",
     "pack": "build --dir",
-    "dist": "build"
+    "dist": "build",
+    "dist:mac": "build --mac"
   },
   "author": "",
   "license": "ISC",
@@ -33,7 +34,6 @@
     "jest": "^24.7.1"
   },
   "build": {
-    "appId": "com.shu.fund.management",
-    "productName": "Fund Management"
+    "appId": "com.shu.fund.management"
   }
 }
