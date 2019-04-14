@@ -1,6 +1,6 @@
-import electron from 'electron';
-import url from 'url';
-import path from 'path';
+let electron = require('electron');
+let url = require('url');
+let path = require('path');
 
 const { app, BrowserWindow } = electron;
 
@@ -17,7 +17,7 @@ function createWindow() {
 
   // and load the index.html of the app.
   win.loadURL(url.format({
-    pathname: path.join(__dirname, '/views/mainWindow.html'),
+    pathname: path.join(__dirname, '/compiled_src/views/mainWindow.html'),
     protocol: 'file:',
     slashes: true,
   }));

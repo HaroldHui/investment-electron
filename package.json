@@ -5,28 +5,35 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "npm run build && electron ./dist/main.js",
-    "clean": "rm -rf dist && mkdir dist",
-    "build": "npm run clean && babel -d ./dist ./src --copy-files",
-    "eslint": "eslint src --fix"
+    "start:dev": "npm run build && electron .",
+    "clean": "rm -rf compiled_src dist && mkdir compiled_src",
+    "build": "npm run clean && babel -d ./compiled_src ./src --copy-files",
+    "eslint": "eslint src --fix",
+    "pack": "build --dir",
+    "dist": "build"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "electron": "^4.1.4",
     "exceljs": "^1.9.0",
     "lodash": "^4.17.11",
     "moment": "^2.24.0"
   },
   "devDependencies": {
+    "electron": "^4.1.4",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^24.7.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "electron-builder": "^20.39.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
     "jest": "^24.7.1"
+  },
+  "build": {
+    "appId": "com.shu.fund.management",
+    "productName": "Fund Management"
   }
 }
