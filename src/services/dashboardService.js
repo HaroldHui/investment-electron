@@ -2,11 +2,11 @@ import Excel from 'exceljs';
 import path from 'path';
 import moment from 'moment';
 import fs from 'fs';
+import uuid from 'uuid/v1';
 import fundService from './fundService';
 import { plus } from '../utils/26bs';
 
 const DASHBOARD_TEMPLATE = path.join(__dirname, '../assets/dashboard.xlsx');
-const TEMP_DASHBOARD = path.join(__dirname, '../assets/temp_dashboard.xlsx');
 
 
 const MONTH_FORMAT = 'mm/yyyy';
@@ -54,11 +54,14 @@ export async function generateDashboard(fundFilePath, startDate, endDate) {
   writeDate(worksheet, startDate, endDate);
   writeCalendarYearReturn(worksheet, calendarYearReturn);
 
-  if (fs.existsSync(TEMP_DASHBOARD)) {
-    fs.unlinkSync(TEMP_DASHBOARD);
+  const tempDir = "/tmp/fund_management";
+  if(!fs.existsSync(tempDir)) {
+    fs.mkdirSync(tempDir);
   }
-  await workbook.xlsx.writeFile(TEMP_DASHBOARD);
-  return fs.readFileSync(TEMP_DASHBOARD);
+  const tempDashboard = `${tempDir}/temp_dashboard_${uuid()}.xlsx`;
+
+  await workbook.xlsx.writeFile(tempDashboard);
+  return fs.readFileSync(tempDashboard);
 }
 
 export default {
